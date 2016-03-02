@@ -50,7 +50,7 @@ var AllWeathers = React.createClass({
     );
   },
   getInfoByZipcode: function getInfoByZipcode(zipcode) {
-    var url = "http://api.openweathermap.org/data/2.5/weather?zip=" + zipcode + ",us&appid=" + this.state.weatherKey + "&units=imperial";
+    var url = "https://api.openweathermap.org/data/2.5/weather?zip=" + zipcode + ",us&appid=" + this.state.weatherKey + "&units=imperial";
     var foundWeather = _.find(this.state.weathers, function (weather) {
       return weather.zipcode === zipcode;
     });

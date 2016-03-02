@@ -50,7 +50,7 @@ var AllWeathers = React.createClass({
         })
         this.setState(newStateData);
     }
-    else if (this.state.weather.length===5){
+    else if (this.state.weathers.length===5){
       var newStateData = $.extend(this.state, {
           zipcodeError: (<div>You have reached your limit of 5 locations saved.</div>)
         })

@@ -12,7 +12,7 @@ var AllWeathers = React.createClass({
       weatherElements.push(<Weather key={weather.id} data={weather}/>);
     });
     var dom = null;
-    if (location.protocol==='http'){
+    if (location.protocol==='http:'){
       dom = (
         <div className="left-align">
           <form className="row" onSubmit={this.getZipcode}>

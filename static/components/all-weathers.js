@@ -16,7 +16,7 @@ var AllWeathers = React.createClass({
       weatherElements.push(React.createElement(Weather, { key: weather.id, data: weather }));
     });
     var dom = null;
-    if (location.protocol === 'http') {
+    if (location.protocol === 'http:') {
       dom = React.createElement(
         "div",
         { className: "left-align" },

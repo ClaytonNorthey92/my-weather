@@ -1,0 +1,107 @@
+"use strict";
+
+var AllWeathers = React.createClass({
+  displayName: "AllWeathers",
+
+  getInitialState: function getInitialState() {
+    return {
+      weatherKey: "43b3b3117ae491a0743fb4c41e1f72fa",
+      weathers: []
+    };
+  },
+  render: function render() {
+    var userWeathers = [];
+    var weatherElements = [];
+    this.state.weathers.forEach(function (weather) {
+      weatherElements.push(React.createElement(Weather, { key: weather.id, data: weather }));
+    });
+    return React.createElement(
+      "div",
+      null,
+      React.createElement(
+        "form",
+        { className: "row", onSubmit: this.getZipcode },
+        React.createElement(
+          "div",
+          { className: "input-field col s4" },
+          React.createElement("input", { placeholder: "Zipcode", id: "zipcode", type: "number", onChange: this.setZipcode }),
+          React.createElement(
+            "label",
+            { "for": "zipcode" },
+            "Enter a zip code you want to see the weather for..."
+          ),
+          this.state.zipcodeError
+        ),
+        React.createElement(
+          "a",
+          { className: "waves-effect waves-light btn" },
+          "+ Add Location"
+        )
+      ),
+      React.createElement(
+        "div",
+        { className: "row" },
+        React.createElement(
+          "div",
+          { className: "s6" },
+          weatherElements
+        )
+      )
+    );
+  },
+  getInfoByZipcode: function getInfoByZipcode(zipcode) {
+    var url = "http://api.openweathermap.org/data/2.5/weather?zip=" + zipcode + ",us&appid=" + this.state.weatherKey + "&units=imperial";
+    var foundWeather = _.find(this.state.weathers, function (weather) {
+      return weather.zipcode === zipcode;
+    });
+    if (foundWeather) {
+      var newStateData = $.extend(this.state, {
+        zipcodeError: React.createElement(
+          "div",
+          null,
+          "Zipcode ",
+          zipcode,
+          " location already saved."
+        )
+      });
+      this.setState(newStateData);
+    } else {
+      $.get(url, (function (data) {
+        if (data.cod === "404") {
+          var newStateData = $.extend(this.state, {
+            zipcodeError: React.createElement(
+              "div",
+              null,
+              "Location not found with zipcode ",
+              zipcode,
+              "."
+            )
+          });
+          this.setState(newStateData);
+        } else {
+          var newWeathers = this.state.weathers;
+          data.zipcode = zipcode;
+          newWeathers.push(data);
+          var newStateData = $.extend(this.state, {
+            weathers: newWeathers,
+            zipcodeError: null
+          });
+          this.setState(newStateData);
+          console.log(this.state);
+        }
+      }).bind(this));
+    }
+  },
+  getZipcode: function getZipcode(event) {
+    event.preventDefault();
+    this.getInfoByZipcode(this.state.zipcode);
+  },
+  setZipcode: function setZipcode(event) {
+    var newStateData = $.extend(this.state.data, {
+      zipcode: event.target.value
+    });
+    this.setState(newStateData);
+  }
+});
+
+ReactDOM.render(React.createElement(AllWeathers, null), document.getElementById('weather'));

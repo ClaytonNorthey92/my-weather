@@ -1,0 +1,21 @@
+{
+  "name": "my-weather",
+  "version": "1.0.0",
+  "homepage": "https://github.com/ClaytonNorthey92/my-weather",
+  "authors": [
+    "ClaytonNorthey92 <clayton.northey@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.2.1",
+    "Materialize": "materialize#~0.97.5",
+    "react": "~0.14.7"
+  }
+}

@@ -73,7 +73,6 @@ var AllWeathers = React.createClass({
             zipcodeError: null
           });
           this.setState(newStateData);
-          console.log(this.state)
         }
       }.bind(this));
     }

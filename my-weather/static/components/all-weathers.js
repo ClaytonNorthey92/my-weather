@@ -17,13 +17,13 @@ var AllWeathers = React.createClass({
     });
     return React.createElement(
       "div",
-      null,
+      { className: "left-align" },
       React.createElement(
         "form",
         { className: "row", onSubmit: this.getZipcode },
         React.createElement(
           "div",
-          { className: "input-field col s4" },
+          { className: "input-field col s6 m4" },
           React.createElement("input", { placeholder: "Zipcode", id: "zipcode", type: "number", onChange: this.setZipcode }),
           React.createElement(
             "label",
@@ -34,7 +34,7 @@ var AllWeathers = React.createClass({
         ),
         React.createElement(
           "a",
-          { className: "waves-effect waves-light btn" },
+          { className: "waves-effect waves-light purple accent-3 btn", onClick: this.getZipcode },
           "+ Add Location"
         )
       ),
@@ -43,7 +43,7 @@ var AllWeathers = React.createClass({
         { className: "row" },
         React.createElement(
           "div",
-          { className: "s6" },
+          { className: "col s12 m4" },
           weatherElements
         )
       )

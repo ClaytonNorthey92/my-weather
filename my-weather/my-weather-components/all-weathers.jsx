@@ -12,17 +12,17 @@ var AllWeathers = React.createClass({
       weatherElements.push(<Weather key={weather.id} data={weather}/>);
     });
     return (
-      <div>
+      <div className="left-align">
         <form className="row" onSubmit={this.getZipcode}>
-          <div className="input-field col s4">
+          <div className="input-field col s6 m4">
             <input placeholder="Zipcode" id="zipcode" type="number" onChange={this.setZipcode}/>
             <label for="zipcode">Enter a zip code you want to see the weather for...</label>
             {this.state.zipcodeError}
           </div>
-          <a className="waves-effect waves-light btn">+ Add Location</a>
+          <a className="waves-effect waves-light purple accent-3 btn" onClick={this.getZipcode}>+ Add Location</a>
         </form>
         <div className="row">
-          <div className="s6">
+          <div className="col s12 m4">
             {weatherElements}
           </div>
         </div>

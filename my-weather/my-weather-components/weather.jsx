@@ -5,7 +5,7 @@ var Weather = React.createClass({
   render: function(){
     var data = this.state.data;
     return (
-          <div className="card blue-grey darken-1">
+          <div className="card blue darken-4">
             <div className="card-content white-text">
               <span className="card-title">{data.name}</span>
               <p>{data.weather[0].description}</p>

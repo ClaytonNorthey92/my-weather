@@ -10,7 +10,7 @@ var Weather = React.createClass({
     var data = this.state.data;
     return React.createElement(
       "div",
-      { className: "card blue-grey darken-1" },
+      { className: "card blue darken-4" },
       React.createElement(
         "div",
         { className: "card-content white-text" },

@@ -11,23 +11,32 @@ var AllWeathers = React.createClass({
     this.state.weathers.forEach(function(weather){
       weatherElements.push(<Weather key={weather.id} data={weather}/>);
     });
-    return (
-      <div className="left-align">
-        <form className="row" onSubmit={this.getZipcode}>
-          <div className="input-field col s6 m4">
-            <input placeholder="Zipcode" id="zipcode" type="number" onChange={this.setZipcode}/>
-            <label for="zipcode">Enter a zip code you want to see the weather for...</label>
-            {this.state.zipcodeError}
-          </div>
-          <a className="waves-effect waves-light purple accent-3 btn" onClick={this.getZipcode}>+ Add Location</a>
-        </form>
-        <div className="row">
-          <div className="col s12 m4">
-            {weatherElements}
+    var dom = null;
+    if (location.protocol==='http'){
+      dom = (
+        <div className="left-align">
+          <form className="row" onSubmit={this.getZipcode}>
+            <div className="input-field col s6 m4">
+              <input placeholder="Zipcode" id="zipcode" type="number" onChange={this.setZipcode}/>
+              <label for="zipcode">Enter a zip code you want to see the weather for...</label>
+              {this.state.zipcodeError}
+            </div>
+            <a className="waves-effect waves-light purple accent-3 btn" onClick={this.getZipcode}>+ Add Location</a>
+          </form>
+          <div className="row">
+            <div className="col s12 m4">
+              {weatherElements}
+            </div>
           </div>
         </div>
-      </div>
-    )
+      )
+    }
+    else {
+      dom = (
+        <div>Site only available over HTTP.</div>
+      )
+    }
+    return dom;
   },
   getInfoByZipcode: function(zipcode){
     var url = "http://api.openweathermap.org/data/2.5/weather?zip="

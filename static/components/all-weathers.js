@@ -15,39 +15,49 @@ var AllWeathers = React.createClass({
     this.state.weathers.forEach(function (weather) {
       weatherElements.push(React.createElement(Weather, { key: weather.id, data: weather }));
     });
-    return React.createElement(
-      "div",
-      { className: "left-align" },
-      React.createElement(
-        "form",
-        { className: "row", onSubmit: this.getZipcode },
+    var dom = null;
+    if (location.protocol === 'http') {
+      dom = React.createElement(
+        "div",
+        { className: "left-align" },
         React.createElement(
-          "div",
-          { className: "input-field col s6 m4" },
-          React.createElement("input", { placeholder: "Zipcode", id: "zipcode", type: "number", onChange: this.setZipcode }),
+          "form",
+          { className: "row", onSubmit: this.getZipcode },
           React.createElement(
-            "label",
-            { "for": "zipcode" },
-            "Enter a zip code you want to see the weather for..."
+            "div",
+            { className: "input-field col s6 m4" },
+            React.createElement("input", { placeholder: "Zipcode", id: "zipcode", type: "number", onChange: this.setZipcode }),
+            React.createElement(
+              "label",
+              { "for": "zipcode" },
+              "Enter a zip code you want to see the weather for..."
+            ),
+            this.state.zipcodeError
           ),
-          this.state.zipcodeError
+          React.createElement(
+            "a",
+            { className: "waves-effect waves-light purple accent-3 btn", onClick: this.getZipcode },
+            "+ Add Location"
+          )
         ),
         React.createElement(
-          "a",
-          { className: "waves-effect waves-light purple accent-3 btn", onClick: this.getZipcode },
-          "+ Add Location"
-        )
-      ),
-      React.createElement(
-        "div",
-        { className: "row" },
-        React.createElement(
           "div",
-          { className: "col s12 m4" },
-          weatherElements
+          { className: "row" },
+          React.createElement(
+            "div",
+            { className: "col s12 m4" },
+            weatherElements
+          )
         )
-      )
-    );
+      );
+    } else {
+      dom = React.createElement(
+        "div",
+        null,
+        "Site only available over HTTP."
+      );
+    }
+    return dom;
   },
   getInfoByZipcode: function getInfoByZipcode(zipcode) {
     var url = "http://api.openweathermap.org/data/2.5/weather?zip=" + zipcode + ",us&appid=" + this.state.weatherKey + "&units=imperial";

@@ -75,6 +75,15 @@ var AllWeathers = React.createClass({
         )
       });
       this.setState(newStateData);
+    } else if (this.state.weather.length === 5) {
+      var newStateData = $.extend(this.state, {
+        zipcodeError: React.createElement(
+          "div",
+          null,
+          "You have reached your limit of 5 locations saved."
+        )
+      });
+      this.setState(newStateData);
     } else {
       $.get(url, (function (data) {
         if (data.cod === "404") {
